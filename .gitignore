@@ -2,3 +2,4 @@
 .project
 doc/_build
 .settings
+esn_lm.egg-info
