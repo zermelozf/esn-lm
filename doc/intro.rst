@@ -12,4 +12,4 @@ On essaye un truc nouveau? string doctest?::
 	
 	>>> from esnlm.nodes import Foo
 
-.. autoclass:: Foo
+.. autoclass:: esnlm.nodes.Foo
