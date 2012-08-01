@@ -3,4 +3,4 @@
 doc/_build
 .settings
 esn_lm.egg-info
-esn_lm.egg-info
+*.pyc
