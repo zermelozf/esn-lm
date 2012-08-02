@@ -1,15 +1,20 @@
-Echo State Networks - Language Models (esn-lm)
-==============================================
+Language models with ESNs 
+=========================
 
+Install using::
 
-Je suis une mite en pullover::
-
-	>>> 2 + 2 
-	4
-
+	cd esnlm/
+	sudo python setup.py install
 	
-On essaye un truc nouveau? string doctest?::
+Test using::
 	
-	>>> from esnlm.nodes import Foo
+	nosetests --with-doctest --doctest-extension=.rst -v
+	
+Build the html documentation::
 
-.. autoclass:: Foo
+	cd doc/
+	make html
+
+or in pdf::
+	
+	make latexpdf

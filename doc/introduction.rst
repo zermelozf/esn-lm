@@ -1,4 +1,4 @@
-Echo State Networks - Language Models (esn-lm)
+Introduction
 ==============================================
 
 
@@ -10,6 +10,5 @@ Je suis une mite en pullover::
 	
 On essaye un truc nouveau? string doctest?::
 	
-	>>> from esnlm.nodes import Foo
+	>>> from esnlm.nodes import LogisticRegression
 
-.. autoclass:: esnlm.nodes.Foo
