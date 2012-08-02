@@ -21,9 +21,10 @@ class LogisticRegression:
         """
         
         
-    def __init__(self, input_dim, output_dim):
+    def __init__(self, input_dim, output_dim, verbose=True):
         self.input_dim = input_dim
         self.output_dim = output_dim
+        self.verbose = verbose
         
         self.params = 3*(-1 + 2*np.random.rand(input_dim, output_dim))/np.sqrt(input_dim)
         
@@ -31,7 +32,7 @@ class LogisticRegression:
         """ Returns the conditional probability of y given x
             
             Parameters
-            ---------
+            ----------
             x : array of shape nb_samples*input_dim
             
             Returns
@@ -45,7 +46,7 @@ class LogisticRegression:
             parameters of the model.
             
             Parameters
-            ---------
+            ----------
             x : array of shape nb_samples*input_dim
             y : array of shape nb_samples*output_dim with one-hot row components
             
@@ -61,7 +62,7 @@ class LogisticRegression:
         """ Generate of sample for each row of x according to P(Y|X=x).
             
             Parameters
-            ---------
+            ----------
             x : array of shape nb_samples*input_dim
             
             Returns
@@ -99,6 +100,9 @@ class LogisticRegression:
                 old_value = new_value
             
         self.params = params.reshape(params.shape)
+        
+        if self.verbose == True:
+            print "The End."
         return params
             
             

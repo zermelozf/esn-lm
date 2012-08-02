@@ -2,7 +2,7 @@
 
 import numpy as np
 
-def gradient(self, x, y, post, w):
+def gradient(x, y, post, w):
     """ Computes the gradient of the cross-entropy.
     
         Parameters
@@ -18,7 +18,7 @@ def gradient(self, x, y, post, w):
     grad = grad.reshape(grad.size)
     return grad
     
-def hessian(self, x, y, post, w):
+def hessian(x, y, post, w):
     """ Computes the hessian of the cross-entropy.
     
         Parameters
