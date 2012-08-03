@@ -31,7 +31,7 @@ This is the class and function reference of esn-lm.
 ===============================
 
 .. automodule:: esnlm.readouts
-	:members: LogisticRegression, MixtureOfExperts
+	:members: LogisticRegression, MixtureOfExperts, SupervisedMoE
 	
 :mod:`esnlm.features`: Features
 ===============================

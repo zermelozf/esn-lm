@@ -7,6 +7,7 @@ Welcome to esn-lm's documentation!
 ==================================
 
 Contents:
+---------
 
 .. toctree::
    :maxdepth: 2
