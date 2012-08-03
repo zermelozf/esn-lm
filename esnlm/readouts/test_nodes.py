@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from esnlm.nodes import LogisticRegression
+from ..readouts import LogisticRegression
 
 input_dim, output_dim = 5, 5
 x = np.random.rand(50, input_dim-1)
@@ -15,7 +15,7 @@ class TestLogisticRegression(unittest.TestCase):
     def testFitting(self):
         model = LogisticRegression(input_dim, output_dim)
         ll_before = model.log_likelihood(x, y)
-        model.fit(x, y, method='Newton-Raphson', nb_iter=20)
+        model.fit(x, y, method='Newton-Raphson', max_iter=20)
         ll_after = model.log_likelihood(x, y)
         
         assert ll_after > ll_before

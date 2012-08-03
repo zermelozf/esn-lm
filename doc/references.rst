@@ -15,15 +15,15 @@ This is the class and function reference of esn-lm.
 	:members: softmax
 
 
-:mod:`esnlm.nodes`: Nodes
+:mod:`esnlm.readouts`: Readouts
 =========================
 
-.. automodule:: esnlm.nodes
-	:members: LogisticRegression
+.. automodule:: esnlm.readouts
+	:members: LogisticRegression, MixtureOfExperts
 	
 :mod:`esnlm.optimization`: Optimization
 =======================================
 
 .. automodule:: esnlm.optimization
-	:members: gradient, hessian, newton_raphson
+	:members: gradient, hessian, newton_raphson, expectation_maximization, expectation_maximization2
 	

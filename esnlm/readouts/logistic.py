@@ -73,7 +73,28 @@ class LogisticRegression:
         y = np.array([np.random.multinomial(1, post[i, :]) for i in range(x.shape[0])])
         return y
     
-    def fit(self, x, y, method='Newton-Raphson', nb_iter=20):
+    def fit(self, x, y, method='Newton-Raphson', max_iter=20):
+        """ Learn the parameters of the model, i.e. self.params.
+        
+        Parameters
+        ----------
+        x : array of shape nb_samples*nb_features
+        y : array of shape nb_samples*output_dim
+        method : string indicating the type of optimization
+            - 'Newton-Raphson'
+        nb_iter : the maximum number of iterations
+        
+        Returns
+        -------
+        params : the matrix of parameters 
+        
+        Examples
+        --------
+            >>> from esnlm.nodes import LogisticRegression
+            >>> x = np.array([[1., 0.],[0., 1]]
+            >>> y = np.array([[0., 1.],[1., 0]]
+            >>> params = LogisticRegression(2,2).fit(x, y)
+        """
         
         def _objective_function(params):
             py_given_x = softmax(np.dot(x, params.reshape(self.params.shape)))
@@ -84,7 +105,7 @@ class LogisticRegression:
         old_value = _objective_function(params)
         
         if method == 'Newton-Raphson':
-            for i in range(nb_iter):
+            for i in range(max_iter):
                 if self.verbose == True:
                     print i,
                 

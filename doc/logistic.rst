@@ -4,7 +4,7 @@ Logistic Regression
 
 First import the LogisticRegression class::
 
-	>>> from esnlm.nodes import LogisticRegression
+	>>> from esnlm.readouts import LogisticRegression
 	
 Then construct a dummy model and generate a dummy dataset::
 

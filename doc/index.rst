@@ -12,7 +12,8 @@ Contents:
    :maxdepth: 2
    
    introduction
-   logistic_regression
+   logistic
+   moe
    references
 
 

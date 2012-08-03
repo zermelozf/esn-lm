@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from esnlm.nodes import LogisticRegression
+from esnlm.readouts import LogisticRegression
 
 input_dim, output_dim = 2, 2
 x = np.random.rand(300, input_dim-1)
