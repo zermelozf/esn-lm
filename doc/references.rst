@@ -13,6 +13,12 @@ This is the class and function reference of esn-lm.
 
 .. automodule:: esnlm.utils
 	:members: softmax
+	
+:mod:`esnlm.nlp`: Text processing
+=================================
+
+.. automodule:: esnlm.nlp
+	:members:
 
 
 :mod:`esnlm.readouts`: Readouts
