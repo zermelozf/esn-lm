@@ -1,6 +1,7 @@
+import numpy as np
 from esnlm.readouts import SupervisedMoE
-from esnlm.nlp import *
-from esnlm.reservoir import *
+from esnlm.nlp import to_num, load_train_test, word_distrib, similarity, perplexity
+from esnlm.reservoir import sparseReservoirMatrix, build_esn, init_reservoir, esn_data
 from esnlm.features import Features
 
     
