@@ -22,7 +22,7 @@ def sparseReservoirMatrix(shape, d):
     w = mask - 2*w
     w[w>0] = 1
     w[w<0] = -1
-    w = 0.97*w/og.utils.get_spectral_radius(w)
+    w = 0.97*w/np.amax(np.absolute(np.linalg.eigvals(w)))
     return w
 
 def init_reservoir(u, reservoir, features=None):
@@ -37,7 +37,7 @@ def init_reservoir(u, reservoir, features=None):
 
     return reservoir.states[-2]
 
-def build_esn(input_dim, reservoir_matrix):
+def buildEsn(input_dim, reservoir_matrix):
     """ Build an ESN with fixed parameters using Oger. """
     reservoir = og.nodes.ReservoirNode(input_dim=input_dim,
                                        output_dim=reservoir_matrix.shape[0],

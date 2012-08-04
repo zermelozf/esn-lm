@@ -1,6 +1,6 @@
 import nltk
 from esnlm.readouts import SupervisedMoE
-from esnlm.reservoir import sparseReservoirMatrix, build_esn
+from esnlm.reservoir import sparseReservoirMatrix, buildEsn
 from esnlm.features import Features
 
 emma = nltk.corpus.gutenberg.raw('austen-emma.txt')[:60000]
@@ -34,7 +34,7 @@ input_dim, features_dim, reservoir_dim, output_dim = vocabulary_size, 5, 150, vo
 
 ### Reservoir
 reservoir_matrix = sparseReservoirMatrix((reservoir_dim,reservoir_dim), 0.27)
-reservoir = build_esn(features_dim, reservoir_matrix)
+reservoir = buildEsn(features_dim, reservoir_matrix)
 
 ### Features
 features = Features(input_dim, features_dim).learn(u1, y1, reservoir, max_iter=10)

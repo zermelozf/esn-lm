@@ -1,10 +1,11 @@
 """ Train the supervised mixture of experts model on Elman's grammar. """
 
 import cPickle as pickle
-from esnlm.reservoir import sparseReservoirMatrix, build_esn
+from esnlm.reservoir import sparseReservoirMatrix, buildEsn
 from esnlm.features import Features
 from esnlm.readouts import SupervisedMoE
 
+print "... loading text"
 with open('./../datasets/t5_train') as f:
     text_train = pickle.load(f)
     
@@ -25,7 +26,7 @@ input_dim = output_dim = len(vocabulary)
 features_dim, reservoir_dim = 5, 10
 
 reservoir_matrix = sparseReservoirMatrix((reservoir_dim, reservoir_dim), 0.27)
-reservoir = build_esn(input_dim=features_dim, reservoir_matrix=reservoir_matrix)
+reservoir = buildEsn(input_dim=features_dim, reservoir_matrix=reservoir_matrix)
 
 features = Features(input_dim, features_dim).learn(utrain, ytrain, reservoir, max_iter=15)
 
