@@ -26,17 +26,18 @@ print "... building dataset"
 ### Training set
 vocabulary_size = 49 
 
-u1, y1 = labels[:20000], labels[:20000]
-u2, y2 = labels[20000:40001], labels[20000:40001]
+tr_start, tr_end, te_start, te_end = 100, 25000, 25000, 50000
+u1, y1 = labels[tr_start:tr_end], labels[tr_start+1:tr_end+1]
+u2, y2 = labels[te_start:te_end], labels[te_start+1:te_end+1]
 
-input_dim, features_dim, reservoir_dim, output_dim = vocabulary_size, 2, 100, vocabulary_size
+input_dim, features_dim, reservoir_dim, output_dim = vocabulary_size, 5, 150, vocabulary_size
 
 ### Reservoir
 reservoir_matrix = sparseReservoirMatrix((reservoir_dim,reservoir_dim), 0.27)
 reservoir = build_esn(features_dim, reservoir_matrix)
 
 ### Features
-features = Features(input_dim, features_dim).learn(u1, y1, reservoir, max_iter=0)
+features = Features(input_dim, features_dim).learn(u1, y1, reservoir, max_iter=10)
 
 ### Readout
 m = SupervisedMoE(input_dim, output_dim)
@@ -59,7 +60,7 @@ print "Perplexity:", perplexity
 mpy = m.py_given_x(x2)
 perplexity = 1
 for i, p in enumerate(mpy):
-    perplexity *= p[y2[i]]**(-1./len(y1))
+    perplexity *= p[y2[i]]**(-1./len(y2))
 print "Perplexity:", perplexity
 mpy = None
 
@@ -70,7 +71,8 @@ lb = np.nonzero(y==1.)[1]
 print lb
 
 syms = [vocabulary[label.index(l)] for l in lb]
-print ''.join(syms)
+print ''.join(syms)[:100]
+print 
 
 
 
