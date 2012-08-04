@@ -5,10 +5,10 @@ from esnlm.reservoir import sparseReservoirMatrix, build_esn
 from esnlm.features import Features
 from esnlm.readouts import SupervisedMoE
 
-with open('./datasets/t5_train') as f:
+with open('./../datasets/t5_train') as f:
     text_train = pickle.load(f)
     
-with open('./datasets/t5_test') as f:
+with open('./../datasets/t5_test') as f:
     text_test = pickle.load(f)
     
 vocabulary = list(set(text_train))
@@ -18,16 +18,16 @@ utrain = [vocabulary.index(w) for w in text_train[:-1]]
 ytrain = [vocabulary.index(w) for w in text_train[1:]]
 
 utest = [vocabulary.index(w) for w in text_test[:-1]]
-ytest = [vocabulary.index(w) for w in text_train[1:]]
+ytest = [vocabulary.index(w) for w in text_test[1:]]
 
 print "... building model"
 input_dim = output_dim = len(vocabulary)
-features_dim, reservoir_dim = 5, 50
+features_dim, reservoir_dim = 5, 10
 
 reservoir_matrix = sparseReservoirMatrix((reservoir_dim, reservoir_dim), 0.27)
-reservoir = build_esn(input_dim=features_dim, w=reservoir_matrix)
+reservoir = build_esn(input_dim=features_dim, reservoir_matrix=reservoir_matrix)
 
-features = Features(input_dim, features_dim).learn(utrain, ytrain, reservoir)
+features = Features(input_dim, features_dim).learn(utrain, ytrain, reservoir, max_iter=15)
 
 readout = SupervisedMoE(reservoir_dim, output_dim)
 
@@ -39,7 +39,7 @@ print "... training readout"
 readout.fit(xtrain, ytrain)
 
 print "... results"
-mpy = readout.py_given(xtrain)
+mpy = readout.py_given_x(xtrain)
 perplexity = 1.
 for i, p in enumerate(mpy):
     perplexity *= p[ytrain[i]]**(-1./len(ytrain))
