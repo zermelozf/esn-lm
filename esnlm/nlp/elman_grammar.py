@@ -12,6 +12,9 @@ lut = dict([(vocabulary[i],  1.*np.eye(len(vocabulary))[i]) for i in range(len(v
 def setVocLut():
     return vocabulary, lut
 
+def vocab():
+    return vocabulary
+
 def similarity(d1, d2):
     """ Returns the similarity between two arrays.
     

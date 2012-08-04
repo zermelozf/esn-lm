@@ -2,6 +2,10 @@
 
 import numpy as np
 
+from matplotlib.pyplot import ion, plot, figure, show, legend, title, get_cmap, colors, clf, draw
+ion()
+from ..nlp import vocab
+
 class Features:
     """ The class for the pre-recurrent features """
     def __init__(self, nb_features, features_dim):
@@ -21,6 +25,8 @@ class Features:
             The features that are learned.
         """
         
+        features = self.params
+        
         if mode == 'text':
             readout = np.random.rand(reservoir.output_dim, self.params.shape[0])/reservoir.output_dim
         
@@ -33,7 +39,7 @@ class Features:
                 print t,
                 lr *= lrdecay
                 for i in range(len(source)):
-                    fea = np.expand_dims(self.params[source[i]], axis=0)
+                    fea = np.expand_dims(features[source[i]], axis=0)
                     res = reservoir.execute(fea)
                     out = np.dot(res, readout)
                     delta0 = out - target[i]
@@ -44,7 +50,17 @@ class Features:
                     self.params[source[i]] += -.005*lr*gradf[:,0]
                     readout += -.001*lr*(gradr + 0.9*momentum)
                     momentum = gradr
-        
+                
+                fig = figure(1)
+                clf()
+                ax = fig.add_subplot(111, autoscale_on=True)
+                ax.plot(features[:-2,0],features[:-2,1],'x')
+                vocabulary = vocab()
+                for w in vocabulary:
+                    c = features[vocabulary.index(w)]
+                    ax.annotate(w, (c[0],c[1]), xytext=(c[0],c[1]), xycoords='data', textcoords='offset points', arrowprops=None)
+                draw()
+            
             print "The end."
             return self.params
     

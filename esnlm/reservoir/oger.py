@@ -64,3 +64,23 @@ def esn_data(source, target, reservoir, init_state, features=None, mode='text'):
         x = reservoir.execute(features[source])
     
     return x
+
+def esn_data2(u, y, reservoir, x0, features=None, mode='text'):
+    """ Builds a dataset of reservoir activations """
+    
+    if features == None:
+        features = np.eye(u[0].shape[1])
+    
+    x = []
+    if mode == 'sentences':
+        for i in range(len(u)):
+            reservoir.states = np.c_[x0].T
+            x.append(reservoir.execute(features[u[i]]))
+        x = np.vstack(x)
+    
+    if mode == 'text':
+        x = reservoir.execute(features[u])
+    
+    return x
+
+
