@@ -1,58 +1,79 @@
-import numpy as np
+import nltk
 from esnlm.readouts import SupervisedMoE
-from esnlm.nlp import to_num, load_train_test, word_distrib, similarity, perplexity
-from esnlm.reservoir import sparseReservoirMatrix, build_esn, init_reservoir, esn_data
+from esnlm.reservoir import sparseReservoirMatrix, build_esn
 from esnlm.features import Features
 
-    
-mode = 'text'
-dim = 100
-sentences1, sentences2 = load_train_test(filename='../datasets/t5')
+emma = nltk.corpus.gutenberg.raw('austen-emma.txt')[:50000]
 
-distrib1 = word_distrib(sentences1)
-distrib2 = word_distrib(sentences2)
+### Analyse symbol frequency
+fd = nltk.FreqDist()
+for s in emma:
+    fd.inc(s)
 
-#Share the reservoir matrix
-reservoir_matrix = sparseReservoirMatrix((dim,dim), 0.27)
+### Map words to labels
+vocabulary = list(set(emma))
+quant = [fd.keys().index(s) for s in vocabulary]
+lut = set(zip(quant, vocabulary))
+lut = sorted(lut, key=lambda el: el[0])
 
-#Build train and test data without features
-#    sreservoir = build_esn(24, reservoir_matrix)
-#    initial_state = init_reservoir(sreservoir, sentences1)
-#    u1, x1, y1 = esn_data(sentences1, sreservoir, initial_state, mode=mode)
-#    u2, x2, y2 = esn_data(sentences2, sreservoir, initial_state, mode=mode)
+label, vocabulary = zip(*lut)
 
-#    Build train and test data with features
+### Relabel 
+labels = [label[vocabulary.index(word)] for word in emma]
+labels = [min(l, 48) for l in labels]
+
 print "... building dataset"
-u1, y1 = to_num(sentences1)
-u2, y2 = to_num(sentences2)
-nb_features, features_dim = u1[0].shape[1], 2
+### Training set
+vocabulary_size = 49 
 
-if mode == 'text':
-    u1 = np.nonzero(np.vstack(u1)==1.)[1]
-    y1 = np.vstack(y1)
-    u2 = np.nonzero(np.vstack(u2)==1.)[1]
-    y2 = np.vstack(y2)
+u1, y1 = labels[:20000], labels[:20000]
+u2, y2 = labels[20000:40001], labels[20000:40001]
 
-freservoir = build_esn(features_dim, reservoir_matrix)
-features = Features(nb_features, features_dim).learn(u1, y1, freservoir, max_iter=15, mode=mode, verbose=True)
+input_dim, features_dim, reservoir_dim, output_dim = vocabulary_size, 2, 100, vocabulary_size
 
-initial_state = init_reservoir(u1, freservoir, features)
-x1 = esn_data(u1, y2, freservoir, initial_state, features, mode=mode)
-x2 = esn_data(u2, y2, freservoir, initial_state, features, mode=mode)
+### Reservoir
+reservoir_matrix = sparseReservoirMatrix((reservoir_dim,reservoir_dim), 0.27)
+reservoir = build_esn(features_dim, reservoir_matrix)
 
-input_dim, output_dim = x1.shape[1], y1.shape[1]
+### Features
+features = Features(input_dim, features_dim).learn(u1, y1, reservoir, max_iter=0)
 
+### Readout
 m = SupervisedMoE(input_dim, output_dim)
 
-ylabels = np.nonzero(y1 != 0)[1]
+### Data
+x1 = reservoir.execute(features[u1])
+x2 = reservoir.execute(features[u2])
 
 print ".. training"
-m.fit(x1, ylabels)
+m.fit(x1, y1)
 
-K_soft_distrib1 = m.py_given_x(x1)
-sim1 = np.mean(similarity(distrib1, K_soft_distrib1))
-K_soft_distrib2 = m.py_given_x(x2)
-sim2 = np.mean(similarity(distrib2, K_soft_distrib2))
+print "... results"
+mpy = m.py_given_x(x1)
 
-print "Similarity:", sim1, sim2
-print "Perplexity:", perplexity(K_soft_distrib1, y1), perplexity(K_soft_distrib2, y2)
+perplexity = 1
+for i, p in enumerate(mpy):
+    perplexity *= p[y1[i]]**(-1./len(y1))
+print "Perplexity:", perplexity
+
+mpy = m.py_given_x(x2)
+perplexity = 1
+for i, p in enumerate(mpy):
+    perplexity *= p[y2[i]]**(-1./len(y1))
+print "Perplexity:", perplexity
+mpy = None
+
+import numpy as np
+y = m.sample_y_given_x(x2)
+lb = np.nonzero(y==1.)[1]
+
+print lb
+
+syms = [vocabulary[label.index(l)] for l in lb]
+print ''.join(syms)
+
+
+
+
+
+

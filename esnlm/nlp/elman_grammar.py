@@ -38,24 +38,6 @@ def similarity(d1, d2):
     prod = np.sum(np.array(d1)*np.array(d2),axis=1)
     return prod/(normx*normy)
 
-def perplexity(py, y):
-    """ Returns the perplexity of py on y 
-        
-        Parameters
-        ----------
-        py : array of size m*n with py[i,j] containing the probability of y[i,j]
-        y : array of size m*n with one-hot rows.
-        
-        Returns
-        -------
-        perplexity : TODO math_formula
-        
-        Notes
-        -----
-        TODO: modify for big arrays.
-    """
-    return np.prod(np.sum(py*y+1e-18, axis=1)**(-1./y.shape[0]))
-
 
 ### Text as sentences collection
 def sentences_ngrams(sentences):

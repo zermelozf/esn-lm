@@ -46,23 +46,3 @@ def build_esn(input_dim, reservoir_matrix):
                                        reset_states=False,
                                        spectral_radius=0.97)
     return reservoir
-
-def esn_data(source, target, reservoir, init_state, features=None, mode='text'):
-    """ Builds a dataset of reservoir activations """
-    
-    if features == None:
-        features = np.eye(source[0].shape[1])
-
-    initial_state = init_state
-    
-    x = []
-    if mode == 'sentences':
-        for i in range(len(source)):
-            reservoir.states = np.c_[initial_state].T
-            x.append(reservoir.execute(np.dot(source[i], features)))
-        x = np.vstack(x)
-    
-    if mode == 'text':
-        x = reservoir.execute(features[source])
-    
-    return x

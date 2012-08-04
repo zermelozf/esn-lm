@@ -54,4 +54,9 @@ class SupervisedMoE:
             p = self.experts[i].predict_proba(x)
             pe = np.tile(np.expand_dims(c[:, i], axis=1) , (1, p.shape[1]))
             py[:,sum(self.experts_dim[:i]):sum(self.experts_dim[:i+1])] = pe*p
-        return py    
+        return py
+    
+    def sample_y_given_x(self, x):
+        post = self.py_given_x(x)
+        y = np.array([np.random.multinomial(1, post[i, :]) for i in range(x.shape[0])])
+        return y 
