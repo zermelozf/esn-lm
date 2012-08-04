@@ -6,7 +6,7 @@ from esnlm.features import Features
 
     
 mode = 'text'
-dim = 50
+dim = 100
 sentences1, sentences2 = load_train_test(filename='../datasets/t5')
 
 distrib1 = word_distrib(sentences1)
@@ -34,9 +34,9 @@ if mode == 'text':
     y2 = np.vstack(y2)
 
 freservoir = build_esn(features_dim, reservoir_matrix)
-features = Features(nb_features, features_dim).learn(u1, y1, freservoir, max_iter=15, mode=mode)
+features = Features(nb_features, features_dim).learn(u1, y1, freservoir, max_iter=15, mode=mode, verbose=True)
 
-initial_state = init_reservoir(freservoir, u1, features)
+initial_state = init_reservoir(u1, freservoir, features)
 x1 = esn_data(u1, y2, freservoir, initial_state, features, mode=mode)
 x2 = esn_data(u2, y2, freservoir, initial_state, features, mode=mode)
 

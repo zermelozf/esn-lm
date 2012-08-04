@@ -25,13 +25,15 @@ def sparseReservoirMatrix(shape, d):
     w = 0.97*w/og.utils.get_spectral_radius(w)
     return w
 
-def init_reservoir(reservoir, source, features=None):
+def init_reservoir(u, reservoir, features=None):
     """ Initialize the reservoir to a state after convergence """
     if features == None:
-        features = np.eye(source[0].shape[1])
-        
-    for i in range(20):
-        reservoir.execute(np.dot(source[i], features))
+        features = np.eye(u[0].shape[1])
+    
+    for s in u[:min(10,len(u))]:
+        reservoir.execute(features[s[:min(s.size, 100)]])
+        if s.size > 100:
+            break
 
     return reservoir.states[-2]
 

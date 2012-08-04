@@ -6,6 +6,8 @@ vocabulary = ['John','Mary','boy','girl','cat','dog','boys','girls','cats','dogs
               'feeds','walks','lives','hits','sees','hears',
               'feed','walk','live','hit','see','hear',
               'who','.']
+def vocab():
+    return vocabulary
 
 lut = dict([(vocabulary[i],  1.*np.eye(len(vocabulary))[i]) for i in range(len(vocabulary))])
 
