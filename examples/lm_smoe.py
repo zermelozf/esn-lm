@@ -3,7 +3,7 @@ from esnlm.readouts import SupervisedMoE
 from esnlm.reservoir import sparseReservoirMatrix, build_esn
 from esnlm.features import Features
 
-emma = nltk.corpus.gutenberg.raw('austen-emma.txt')[:50000]
+emma = nltk.corpus.gutenberg.raw('austen-emma.txt')[:60000]
 
 ### Analyse symbol frequency
 fd = nltk.FreqDist()

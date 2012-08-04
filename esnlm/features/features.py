@@ -28,7 +28,7 @@ class Features:
             print "... gradient descent on features:",
             momentum = 0.
             lrdecay = 0.95
-            lr = 5.
+            lr = 1.
             
             for t in range(max_iter):
                 print t,
