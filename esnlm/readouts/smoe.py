@@ -30,8 +30,6 @@ class SupervisedMoE:
         
         self.experts_dim = eucl(output_dim)
         self.nb_experts = len(self.experts_dim)
-        print "nb_experts:", self.nb_experts
-        print "experts_dim:", self.experts_dim
 
         self.gates = LogisticRegression()
         self.experts = []

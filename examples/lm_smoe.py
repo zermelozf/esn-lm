@@ -62,17 +62,6 @@ perplexity = 1
 for i, p in enumerate(mpy):
     perplexity *= p[y2[i]]**(-1./len(y2))
 print "Perplexity:", perplexity
-mpy = None
-
-import numpy as np
-y = m.sample_y_given_x(x2)
-lb = np.nonzero(y==1.)[1]
-
-print lb
-
-syms = [vocabulary[label.index(l)] for l in lb]
-print ''.join(syms)[:100]
-print 
 
 
 
