@@ -51,12 +51,13 @@ class MixtureOfExperts:
         pz_given_x = self.pz_given_x(x)
         return np.sum(np.log(np.sum(pz_given_x*lik_y, 1)))
     
-    def fit(self, x, y, method='CG', max_iter=100):
+    def fit(self, x, y, method='CG', max_iter=15):
         """ The model is trained using Generalized Expectation-Maximization.
             In the Maximization step the Conjugate-Gradient algorithm provided by scipy.optimize is used
             by default.
         """
-        
+        if type(y) == type([]):
+            y = np.eye(self.output_dim)[y]
         ll, Q1, Q2 = expectation_maximization(self, x, y, max_iter=max_iter)
         return ll, Q1, Q2
         

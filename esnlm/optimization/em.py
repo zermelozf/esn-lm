@@ -25,6 +25,8 @@ def expectation_maximization(model, x, y, max_iter=100):
         The maximization step uses the Conjugate-Gradient algorithm of scipy.optimize.
     """
     
+    print "... Expectation-Maximization:",
+    
     # initialize likelihood parts
     lll = []
     Q1l = []

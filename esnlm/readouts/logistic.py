@@ -95,6 +95,8 @@ class LogisticRegression:
             >>> y = np.array([[0., 1.],[1., 0]]
             >>> params = LogisticRegression(2,2).fit(x, y)
         """
+        if type(y) == type([]):
+            y = np.eye(self.output_dim)[y]
         
         def _objective_function(params):
             py_given_x = softmax(np.dot(x, params.reshape(self.params.shape)))
@@ -105,6 +107,7 @@ class LogisticRegression:
         old_value = _objective_function(params)
         
         if method == 'Newton-Raphson':
+            print "... Newton-Raphson:",
             for i in range(max_iter):
                 if self.verbose == True:
                     print i,
@@ -120,7 +123,27 @@ class LogisticRegression:
                     break
                 old_value = new_value
             
-        self.params = params.reshape(params.shape)
+            self.params = params.reshape(self.params.shape)
+        
+        else:
+            from scipy.optimize import minimize
+            
+            def obj(params):
+                return -_objective_function(params)
+                
+            def grd(params):
+                post = softmax(np.dot(x, params.reshape(self.params.shape)))
+                return -gradient(x, y, post, np.ones((y.shape[0], ))).squeeze()
+            
+            def hsn(params):
+                post = softmax(np.dot(x, params.reshape(self.params.shape)))
+                return -hessian(x, y, post, np.ones((y.shape[0], )))
+            
+            params = params.reshape(params.size)
+            res = minimize(obj, params,jac=grd, hess=hsn, method=method, 
+                           options={'maxiter':100, 'xtol': 1e-4, 'disp': True})
+            params = res.x
+            self.params = params.reshape(self.params.shape)
         
         if self.verbose == True:
             print "The End."
