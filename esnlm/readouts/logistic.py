@@ -124,6 +124,8 @@ class LogisticRegression:
                 old_value = new_value
             
             self.params = params.reshape(self.params.shape)
+            if self.verbose == True:
+                print "The End."
         
         else:
             from scipy.optimize import minimize
@@ -145,8 +147,6 @@ class LogisticRegression:
             params = res.x
             self.params = params.reshape(self.params.shape)
         
-        if self.verbose == True:
-            print "The End."
         return params
             
             

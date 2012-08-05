@@ -16,7 +16,7 @@ init_value = m.log_likelihood(x, y)
        
 initial_params = np.array(m.params)
 m.log_likelihood(x, y)
-method = 'Newton-Raphson'
+method = 'CG'
 print "... training using", method, ":",
 m.fit(x, y, method=method)
 

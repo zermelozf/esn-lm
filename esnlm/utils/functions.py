@@ -63,6 +63,9 @@ def compare(features, reservoir, readouts, utrain, ytrain, utest, ytest):
     per = []
     for readout in readouts:
         print "... learning", readout
-        readout.fit(xtrain, ytrain)
+        try:
+            readout.fit(xtrain, ytrain, method='CG')
+        except:
+            readout.fit(xtrain, ytrain)
         per.append(perplexity(readout.py_given_x(xtest), ytest))
     return per
