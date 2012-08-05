@@ -37,7 +37,3 @@ You can also script the process::
 
 
 
-	
-sudo python setup.py install
-
-

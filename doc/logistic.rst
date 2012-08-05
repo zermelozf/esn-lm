@@ -1,6 +1,11 @@
 Logistic Regression
 ===================
 
+Description
+-----------
+
+Example of use
+--------------
 
 First import the LogisticRegression class::
 
@@ -33,6 +38,15 @@ Finally, plot the probability of the different classes::
 	plt.show()
 	
 .. plot:: pyplots/log_reg.py
+
+
+References
+----------
+
+.. automodule:: esnlm.readouts.logistic
+   :members:
+   :undoc-members:
+
 
    
 	

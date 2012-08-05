@@ -6,22 +6,36 @@
 Welcome to esn-lm's documentation!
 ==================================
 
-Contents:
----------
+Hand on!
+--------------------
 
 .. toctree::
-   :maxdepth: 2
    
    install
    elman
+   
+Theory and code
+---------------
+
+.. toctree::
+   :maxdepth: 1
+
+   features
+   linear
    logistic
    moe
-   references
+   smoe
+   optimization
+   utils
+  
+In developement
+---------------
 
-
+.. toctree::
+   nodes
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
