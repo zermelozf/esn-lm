@@ -6,7 +6,7 @@
 Welcome to esn-lm's documentation!
 ==================================
 
-Hand on!
+Hands on!
 --------------------
 
 .. toctree::
@@ -25,7 +25,8 @@ Theory and code
    logistic
    moe
    smoe
-   optimization
+   em
+   newton
    utils
   
 In developement
