@@ -2,7 +2,6 @@
 
 import cPickle as pickle
 import Oger as og
-from esnlm.utils import sparseReservoirMatrix
 from esnlm.features import Features
 from esnlm.readouts import *
 
@@ -25,17 +24,15 @@ ytest = [vocabulary.index(w) for w in text_test[1:]]
 print "... building model"
 ### Hyperparameters
 input_dim = output_dim = len(vocabulary)
-features_dim, reservoir_dim = 2, 5
+features_dim, reservoir_dim = 2, 25
 spectral_radius = 0.97
 
 ### Modules
-#reservoir_matrix = sparseReservoirMatrix((reservoir_dim, reservoir_dim), 0.27)
 reservoir = og.nodes.ReservoirNode( input_dim       =   features_dim,
                                     output_dim      =   reservoir_dim,
-                                    #w               =   reservoir_matrix,
                                     spectral_radius =   spectral_radius)
 
-features = Features(input_dim, features_dim).learn(utrain, ytrain, reservoir, max_iter=0)
+features = Features(input_dim, features_dim).learn(utrain, ytrain, reservoir, max_iter=10)
 
 
 #readout = LinearRegression(reservoir_dim, output_dim)
@@ -48,7 +45,7 @@ xtrain = reservoir.execute(features[utrain])
 xtest  = reservoir.execute(features[utest])
 
 print "... training readout"
-readout.fit(xtrain, ytrain, method='CG')
+readout.fit(xtrain, ytrain)
 
 print "... results"
 

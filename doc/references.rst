@@ -12,19 +12,7 @@ This is the class and function reference of esn-lm.
 =============================
 
 .. automodule:: esnlm.utils
-	:members: softmax
-	
-:mod:`esnlm.reservoir`: Reservoir
-=============================
-
-.. automodule:: esnlm.reservoir
-	:members: sparseReservoirMatrix, init_reservoir, build_esn
-	
-:mod:`esnlm.nlp`: Text processing
-=================================
-
-.. automodule:: esnlm.nlp
-	:members: setVocLut, similarity, perplexity, sentences_ngram, word_distrib, to_num, load_sentences, load_train_test
+	:members: softmax, sparseReservoirMatrix
 
 
 :mod:`esnlm.readouts`: Readouts

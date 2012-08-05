@@ -12,7 +12,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
    
-   introduction
+   install
+   elman
    logistic
    moe
    references
