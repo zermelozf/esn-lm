@@ -25,7 +25,7 @@ ytest = [vocabulary.index(w) for w in text_test[1:]]
 print "... building model"
 ### Hyperparameters
 input_dim = output_dim = len(vocabulary)
-reservoir_dim = 25
+reservoir_dim = 10
 spectral_radius = 0.97
 
 print "WITHOUT FEATURES:"
