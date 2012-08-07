@@ -12,6 +12,7 @@ likelihood of the data,
 	\begin{equation}
 	\Theta^{*}=\underset{\Theta}{\arg\max}\ \mathcal{L}(\mathcal{X},\Theta),
 	\end{equation}
+
 or equivalently, the log-likelihood of the data since the logarithm
 function is strictly increasing. Here the samples :math:`(\mathbf{x}_{n},\mathbf{y}_{n})\in\mathcal{X}`
 are assumed to be independent \footnote{This is not the case for Echo State Networks but we make this simplification
@@ -44,6 +45,7 @@ Using Jensen's inequality the log-likelihood can be rewritten as:
 	 & \geq & \sum_{n=1}^{M}\sum_{z=1}^{K}q_{n}(z)\ln\frac{p(\mathbf{y}_{n},z|\mathbf{x}_{n})}{q_{n}(z)}\\
 	 & = & \mathcal{F}(\mathcal{X},q,\Theta),
 	\end{eqnarray}
+
 where :math:`q_{n}\geq0` satisfies :math:`\sum_{z=1}^{K}q_{n}(z)=1`. In this
 new form the summation over the latent variable :math:`z` has been taken
 out of the logarithm. Moreover we define 
@@ -53,6 +55,7 @@ out of the logarithm. Moreover we define
 	\mathcal{Q}(\mathcal{X},q,\Theta) & = & \sum_{n=1}^{M}\sum_{z=1}^{K}q_{n}(z)\ln p(\mathbf{y}_{n},z|\mathbf{x}_{n})\\
 	H(\mathcal{X},q) & = & -\sum_{n=1}^{M}\sum_{z=1}^{K}q_{n}(z)\ln q_{n}(z),
 	\end{eqnarray}
+
 such that 
 
 .. math::
@@ -60,28 +63,30 @@ such that
 	\mathcal{F}(\mathcal{X},q,\Theta)=\mathcal{Q}(\mathcal{X},q,\Theta)+H(\mathcal{X},q).
 	\end{equation}
 
-\begin{itemize}
-\item In the Expectation step, this lower bound on the log-likelihood is
-maximized with respect to :math:`q_{nz}`, leading to:
-	
-.. math::
-	\begin{equation}
-	q_{n}(z)=p(z|\mathbf{x},\mathbf{y}).
-	\end{equation}
-The variable :math:`q_{n}(z)` thus corresponds to the posterior probability
-of :math:`z` given :math:`\mathbf{x}` and :math:`\mathbf{z}`. 
-\item In the Maximization step, :math:`\mathcal{F}(\mathcal{X},q,\Theta)` is
-maximized with respect to the parameters of the model. Since :math:`q_{n}(z)`
-does not depend on the parameters :math:`\Theta` of the model, the objective
-function can be simplified during this step:
-\end{itemize}
 
-.. math::
-	\begin{eqnarray}
-	\Theta^{*} & = & \underset{\Theta}{\arg\max}\ \mathcal{B}(\mathcal{X},q,\Theta)\\
-	 & = & \underset{\Theta}{\arg\max}\ \mathcal{Q}(\mathcal{X},\Theta)+H(q)\\
-	 & = & \underset{\Theta}{\arg\max}\ \mathcal{Q}(\mathcal{X},\Theta).
-	\end{eqnarray}
+* 	In the Expectation step, this lower bound on the log-likelihood is
+	mized with respect to :math:`q_{nz}`, leading to:
+	
+	.. math::
+		\begin{equation}
+		q_{n}(z)=p(z|\mathbf{x},\mathbf{y}).
+		\end{equation}
+
+	The variable :math:`q_{n}(z)` thus corresponds to the posterior probability
+	of :math:`z` given :math:`\mathbf{x}` and :math:`\mathbf{z}`.
+
+* 	In the Maximization step, :math:`\mathcal{F}(\mathcal{X},q,\Theta)` is
+	maximized with respect to the parameters of the model. Since :math:`q_{n}(z)`
+	does not depend on the parameters :math:`\Theta` of the model, the objective
+	function can be simplified during this step:
+
+
+	.. math::
+		\begin{eqnarray}
+		\Theta^{*} & = & \underset{\Theta}{\arg\max}\ \mathcal{B}(\mathcal{X},q,\Theta)\\
+		 & = & \underset{\Theta}{\arg\max}\ \mathcal{Q}(\mathcal{X},\Theta)+H(q)\\
+		 & = & \underset{\Theta}{\arg\max}\ \mathcal{Q}(\mathcal{X},\Theta).
+		\end{eqnarray}
 
 
 In a sense, the EM algorithm transforms a learning problem with unobserved
@@ -103,6 +108,7 @@ for linear and multinomial logit experts:
 	 & = & \sum_{n=1}^{M}\sum_{z=1}^{K}q_{n}(z)\ln p(z|\mathbf{x}_{n})+\sum_{z=1}^{K}\left(\sum_{n=1}^{M}q_{n}(z)\ln p(\mathbf{y}_{n}|\mathbf{x}_{n},z)\right)\nonumber \\
 	 & = & \mathcal{Q}_{g}(\mathcal{X},\Theta_{g})+\sum_{z}\mathcal{Q}_{e,z}(\mathcal{X},\Theta_{e,z}),
 	\end{eqnarray}
+
 where 
 
 .. math::
@@ -110,6 +116,7 @@ where
 	\mathcal{Q}_{g}(\mathcal{X},\Theta_{g}) & = & \sum_{n=1}^{M}\sum_{z=1}^{K}q_{n}(z)\ln p(z|\mathbf{x}_{n})\\
 	\mathcal{Q}_{e,z}(\mathcal{X},\Theta_{e,z}) & = & \sum_{n=1}^{M}q_{n}(z)\ln p(\mathbf{y}_{n}|\mathbf{x}_{n},z)
 	\end{eqnarray}
+
 are the objective functions for the gating and expert models respectively.
 The parameters in each of the sub-objectives have been decoupled hence
 the sub-models can be trained independently:
@@ -119,6 +126,7 @@ the sub-models can be trained independently:
 	\Theta_{g}^{*} & = & \underset{\Theta_{g}}{\arg\max}\ \mathcal{Q}_{g}(\mathcal{X},\Theta_{g})\label{eq:gateoptfunc}\\
 	\Theta_{e,z}^{*} & = & \underset{\Theta_{e,z}}{\arg\max}\ \mathcal{Q}_{e,z}(\mathcal{X},\Theta_{e,z}).
 	\end{eqnarray}
+
 :math:`\Theta_{g}^{*}` can be found by minimizing the cross-entropy between
 :math:`q_{n}(z)` and :math:`p(z|\mathbf{x})` while the :math:`\Theta_{e,z}^{*}` can
 be found by solving a weighted least square problem in the regression
@@ -131,5 +139,6 @@ Code
 .. automodule:: esnlm.optimization.em
    :members:
    :undoc-members:
-   
+
+
    

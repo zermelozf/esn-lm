@@ -31,7 +31,7 @@ experts; this allows adding hand crafted features for selecting experts.
 Another way of selecting the experts is to rely on the word to be
 predicted. For example, using the representation developed in the
 feature layer, we can cluster words and assign an expert to each cluster
-of words. In fact, this trick is used in \cite{Morin2005} to speed
+of words. In fact, this trick is used in [Morin2005]_ to speed
 up the training of a neural language model: each expert is assigned
 to a subset of the vocabulary. The probability of the next word is
 computed according to:
@@ -49,12 +49,12 @@ the size of the vocabulary grows like :math:`|V|`, it is possible to train
 the gating and experts models on vector of size only :math:`\sqrt{|V|}`.
 The gain in training time is very sensible if the vocabulary is large
 and this trick allows to train a network efficiently on a huge number
-of words in a reasonable time \cite{Mikolov2011a,Mikolov2011}.
+of words in a reasonable time [Mikolov2011a]_, [Mikolov2011]_.
 
 Finally, it is also possible to keep the latent variable in the mixture
 of experts model and add another level of nodes to separate the vocabulary.
 In fact the architecture can be stacked any number of time as in the
-hierarchical mixture of experts model \cite{Jordan1994}.
+hierarchical mixture of experts model [Jordan1994]_.
 
 Code
 ----
@@ -62,3 +62,9 @@ Code
 .. automodule:: esnlm.readouts.smoe
    :members:
    :undoc-members:
+   
+References
+----------
+
+.. [Morin2005] plop
+.. [Jordan1994] plop

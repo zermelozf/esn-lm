@@ -8,12 +8,12 @@ In order to assess the performance of the proposed algorithms, we
 want to compare the results we obtain to the performance of other
 neural network language models. Although recent advances in language
 modeling have been made using sophisticated feed-forward networks
-\cite{Bengio:2003:NPL:944919.944966,collobert:2008,Mnih08ascalable,Mnih2007},
+[Bengio2003]_, [collobert2008]_, [Mnih08ascalable]_, [Mnih2007]_,
 we restricted our comparison to simple recurrent neural networks and
 conventional echo state networks. 
 
 Work on simple recurrent neural networks applied to a language modeling
-task dates back to Elman's experiment in 1991 \cite{Elman:1991:DRS:125342.125347}.
+task dates back to Elman's experiment in 1991 [Elman1991]_.
 Jeffrey Elman trained recurrent neural networks on a simple artificial
 grammar whose statistical and syntactic properties were readily available.
 This artificial grammar is quite simple. Nevertheless it exhibits
@@ -24,7 +24,7 @@ grammar.
 GRAMMAR
 
 A comparison between echo state networks and simple recurrent network
-was studied in \cite{Tong:2007:SIL:1265618.1265889}. According to
+was studied in [Tong2007]_. According to
 results obtained in that experiment, echo state network show performances
 similar to simple recurrent network on a simple artificial grammar.
 On one hand the advantage of echo states networks over simple recurrent
@@ -140,7 +140,7 @@ which has radius :math:`\bar{\sigma}^{3}D` (where :math:`D` can be chosen to
 be the radius of a ball containing all the trajectories of the recurrent
 layer). In the more general case where :math:`\bar{\sigma}(W)<1` does not
 necessarily hold, the uniformly state contracting property of echo
-state networks \cite{Jaeger2001a} implies a similar organization
+state networks Jaeger2001a]_ implies a similar organization
 of the reservoir activation. 
 
 These clusters can be visualized in figure \ref{fig:1-gram-regions}
@@ -154,7 +154,7 @@ FIGURE
 This observation leads to a better understanding of the method used
 by echo states networks to model sentences (and more generally to
 perform any Markov-like task): echo state networks correspond loosely
-to variable length Markov models \cite{Tino02markovianarchitectural}.
+to variable length Markov models [Tino02markovianarchitectural]_.
 
 In summary, the fractal or Markovian representation developed in the
 reservoir layer is linked to :math:`n`-gram models. This leads to a reflexion
@@ -180,3 +180,7 @@ fast and easy.
 The next chapters present in more detail the modification made to
 the basic echo state network architecture.
 
+References
+----------
+
+.. [Tino02markovianarchitectural] plop

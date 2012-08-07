@@ -1,7 +1,7 @@
 Echo State Networks
 ===================
 
-Echo State Networks (ESNs) \cite{Jaeger2001a} are a rather recent
+Echo State Networks (ESNs) [Jaeger2001a]_ are a rather recent
 development in the field of recurrent neural networks and have gained
 popularity amongst researchers for their good performances on tasks
 such as time series prediction or speech recognition as well as for
@@ -82,7 +82,7 @@ only some production of an existing real dynamical system, it is hoped
 that the recurrent neural network will be able to reconstruct in its
 recurrent layer the state space of this dynamical system and allow
 a deeper understanding of the nature of the dynamical system. This
-``hope'' is supported by Takens' theorem \cite{Noakes1991} which
+``hope'' is supported by Takens' theorem [Noakes1991]_ which
 describes the conditions under which a chaotic dynamical system can
 be reconstructed from a sequence of observations. This theorem is
 also useful to justify the use of time-delay neural networks.
@@ -92,7 +92,7 @@ The Echo State Property
 -----------------------
 
 To this point, it may seem that the main difference between a simple
-recurrent neural network \cite{Elman:1991:DRS:125342.125347} and
+recurrent neural network [Elman1991]_ and
 an echo state network is the fact that :math:`\mathbf{W}` , the weight matrix
 of the reservoir, is fixed. Although this is mainly true from a training
 point of view (only the output weights are to be learned in the ESN
@@ -100,14 +100,14 @@ case), fixing the weights of a simple recurrent neural network does
 not automatically yield an echo state network. The defining characteristic
 of an echo state network is that it exhibits the echo state property!
 Obviously the previous statement is dangerously close to a tautology.
-Let's refer to \cite{Jaeger2001a} to define more formally the echo
+Let's refer to [Jaeger2001a]_ to define more formally the echo
 state property.
 
 \begin{definition} Assume standard compactness. The network has :math:`echo\ states` , if the network state :math:`\mathbf{x}_{n}`  is uniquely determined by any left-infinite input sequence :math:`\bar{u}^{-\infty}` . More precisely, this means that for every input sequence :math:`(..., \mathbf{u}_{n-1}, \mathbf{u}_{n}) \in U^{-\mathbb{N}}` , for all state sequence :math:`(..., \mathbf{x}_{n-1}, \mathbf{x}_{n})`  and  :math:`(..., \mathbf{x'}_{n-1}, \mathbf{x'}_{n}) \in A^{-\mathbb{N}}` , where :math:`\mathbf{x}_{i}=g(\mathbf{\mathbf{x}_{i-1}}, \mathbf{u}_{i})`  and :math:`\mathbf{x'}_{i}=g(\mathbf{\mathbf{x'}_{i-1}}, \mathbf{u}_{i})` , it holds that :math:`\mathbf{x}_{n}=\mathbf{x'}_{n}` .\end{definition}
 
 Unfortunately, this formal definition does not allow an intuitive
 characterization of echo state networks. However, it can be shown
-\cite{Jaeger2001a} that the echo state property is equivalent to
+[Jaeger2001a]_ that the echo state property is equivalent to
 the network being \emph{state contracting}, \emph{state forgetting}
 or \emph{input forgetting. }We will not rigorously define these different
 properties but rather try to give an intuitive explanation of what
@@ -160,7 +160,7 @@ ensure that a network exhibits the echo state properties.
 	
 
 These bound on the echo state property are not tight. A less strict
-sufficient condition on the matrix :math:`\mathbf{W}`  can be found in \cite{Buehner_Young_2006}.
+sufficient condition on the matrix :math:`\mathbf{W}`  can be found in [Buehner_Young_2006]_.
 Instead of the matrix norm induced by the Euclidean norm :math:`\|\mathbf{W}\|_{2}=\underset{\mathbf{x}\neq\mathbf{0}}{\sup}\frac{\|\mathbf{Wx}\|_{2}}{\|\mathbf{x}\|_{2}}=\bar{\sigma}(\mathbf{W})` ,
 the induced D-norm :math:`\|\mathbf{W}\|_{\mathbf{D}}=\bar{\sigma}(\mathbf{D}\mathbf{W}\mathbf{D}^{-1})` 
 is used with the same condition :math:`\|\mathbf{W}\|_{\mathbf{D}}<1`.
@@ -193,3 +193,13 @@ See also:
 
 .. automodule:: esnlm.utils.functions
    :members: sparseReservoirMatrix
+   
+References
+----------
+
+.. [Jaeger2001a] plop
+.. [Noakes1991] plop
+.. [Elman1991] plop
+.. [Buehner_Young_2006] plop
+
+

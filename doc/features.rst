@@ -15,8 +15,8 @@ layer is:
 	\end{eqnarray}
 
 where :math:`f` is the function extracting features from the input :math:`\mathbf{u}`.
-Following the idea presented in \cite{Bengio:2003:NPL:944919.944966}
-and also used in \cite{collobert:2008}, :math:`f` will simply be a linear
+Following the idea presented in [Bengio2003]_
+and also used in [collobert2008]_, :math:`f` will simply be a linear
 projection of the input vector :math:`\mathbf{u}` on a vector space whose
 dimensionality :math:`F` can be chosen:
 
@@ -56,7 +56,7 @@ and requires back-propagation Through Time of the gradient error.
 However the echo state property allows neglecting the terms of the
 gradient back-propagated several times through the recurrent layer.
 In fact, the echo state property is responsible for the vanishing
-gradient effect described in \cite{Bengio_learninglong-term}. Informally,
+gradient effect described in [Bengio_learninglong-term]_. Informally,
 since the influence of the feature :math:`f(\mathbf{u}_{t})` is attenuated
 through time because of the echo state property, it has only a very
 limited impact on the state of the recurrent layer :math:`\mathbf{x}_{t+n}`
@@ -174,3 +174,7 @@ Code
    :members:
    :undoc-members:
    
+References
+----------
+
+.. [Bengio_learninglong-term] plop

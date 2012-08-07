@@ -39,7 +39,7 @@ where :math:`\mathbf{X}\in\mathbb{R}^{M\times D},\mathbf{Y}\in\mathbb{R}^{M\time
 are matrices with row :math:`n` corresponding respectively to :math:`\mathbf{x}_{n}`
 and :math:`\mathbf{y}_{n}`. 
 
-From a statistical point of view \cite{Hastie2009}, if :math:`(\mathbf{x}_{n},\mathbf{y}_{n})`
+From a statistical point of view [Hastie2009]_, if :math:`(\mathbf{x}_{n},\mathbf{y}_{n})`
 are samples from a probability distribution :math:`P(X,Y)`, the loss function :math:`L` is proportional to the empirical estimator of the expected mean
 square error:
 
@@ -95,3 +95,8 @@ Code
 .. automodule:: esnlm.readouts.linear
    :members:
    :undoc-members:
+   
+References
+----------
+
+.. [Hastie2009] plop

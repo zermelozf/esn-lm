@@ -15,10 +15,10 @@ clearly incorrect since languages are know to evolve according to
 trends in a society, it is thought to be a good approximation of the
 reality for a short period of time. These assumptions allow describing
 the process of learning a language as equivalent to learning the underlying
-symbolic dynamical system that produces speech, text, etc \cite{AndrewsThesis}.
+symbolic dynamical system that produces speech, text, etc [AndrewsThesis]_.
 This statement argues in favor of the use of model such as echo state
 network that have enough computational power to learn a large class
-of dynamical systems \cite{Lukosevicius2007}.
+of dynamical systems [Lukosevicius2007]_.
 
 The goal of a probabilistic language model is to assign a probability
 to every possible sequence of word. This task cannot be realized in
@@ -67,21 +67,21 @@ However this maximum likelihood estimate can rarely be used on test
 data since some rare context that have never been seen in the training
 set are automatically assigned a zero probability. To avoid a division
 by zero, several smoothing techniques such as Good-Turing or Kneyser-Ney
-\cite{Chen:1996:ESS:981863.981904} have been devised that redistribute
+[Chen1996]_ have been devised that redistribute
 the probability mass in a clever way and allow to assign a probability
 to sequences that do not appear in the training set.
 
-Recently a few neural language models \cite{Bengio:2003:NPL:944919.944966,Mnih08ascalable,Mnih2007}
+Recently a few neural language models [Bengio2003]_, [Mnih08ascalable]_, [Mnih2007]_
 have been proposed which perform as well or even better than :math:`n`-gram
 models. They address both the problems of the representational power
 of Markov models and data sparsity by introducing a distributed representation
-for words that capture the similarities between them \cite{Turian:2010:WRS:1858681.1858721}.
+for words that capture the similarities between them [Turian2010]_.
 In chapter \ref{chap:Adding-a-pre-recurrent} we present an echo state
 network augmented with a pre-recurrent feature layer and the algorithm
 used to train it.
 
 Another type of language model that has received a lot of attention
-recently is the Latent Dirichlet Allocation (LDA) model \cite{Blei2003}.
+recently is the Latent Dirichlet Allocation (LDA) model [Blei2003]_.
 This model can be seen as an extension of the probabilistic latent
 semantic indexing model (figure \ref{fig:Hierarchical-probabilistic-langu}).
 It has been followed by a number of improvements that have been widely
@@ -90,8 +90,8 @@ these models us to use hierarchical probabilistic graphical models
 to capture information about the topic of different documents. While
 the original LDA model uses a unigram model as the core language model,
 more recent implementation have tried to make use of more complex
-models such as hidden Markov models \cite{Andrews2009} or even syntactic
-parsing trees \cite{Boyd-graber2009}. 
+models such as hidden Markov models [Andrews2009]_ or even syntactic
+parsing trees [Boyd-graber2009]_. 
 
 In chapter \ref{chap:Multiple-Readouts} we present a hierarchical
 model for selecting the readout that also tries to capture high level
@@ -108,7 +108,7 @@ distribution :math:`Q` over word sequences which is an approximation of
 the true probability distribution :math:`P`. A measure of the quality of
 the learned model of the language :math:`L` can be achieved by computing
 the cross-entropy of the two probability distributions :math:`P` and :math:`Q`
-\cite{Gildea2002}. Using the notation :math:`\mathbf{\bar{w}}_{n}=(w_{1}\ldots w_{n})`:
+[Gildea2002]_. Using the notation :math:`\mathbf{\bar{w}}_{n}=(w_{1}\ldots w_{n})`:
 
 .. math::
 	\begin{eqnarray}
@@ -150,7 +150,7 @@ Because the entropy rate :math:`H(Q)` measures the average number of information
 bit per word according to the model, the perplexity can be thought
 of as the average number of possible next word given a context according
 to the model. Interestingly, the actual per-letter entropy rate of
-the English language was estimated in \cite{Shannon1951} using a
+the English language was estimated in [Shannon1951]_ using a
 Shannon guessing game. The entropy rate reported is of 1.3 bits (for
 27 characters).
 
@@ -165,3 +165,16 @@ approximated probability distribution of the next word :math:`\mathbf{q}`:
 .. math::
 	Cos(\mathbf{p},\mathbf{q})=\frac{\langle\mathbf{p},\mathbf{q}\rangle}{\|\mathbf{p}\|_{2}\|\mathbf{q}\|_{2}}.
 
+References
+----------
+
+.. [Chen1996] plop
+.. [Mnih08ascalable]
+.. [AndrewsThesis] plop
+.. [Lukosevicius2007] plop
+.. [Blei2003] plop
+.. [Andrews2009] plop
+.. [Boyd-graber2009] plop
+.. [Gildea2002] plop
+.. [Shannon1951] plop
+.. [Turian2010] plop
