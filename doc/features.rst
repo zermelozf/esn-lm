@@ -13,6 +13,7 @@ layer is:
 	 & = & g(f(\mathbf{u}_{t}),\mathbf{x}_{t})\\
 	\mathbf{y}_{t} & = & h(\mathbf{x}_{t}),
 	\end{eqnarray}
+
 where :math:`f` is the function extracting features from the input :math:`\mathbf{u}`.
 Following the idea presented in \cite{Bengio:2003:NPL:944919.944966}
 and also used in \cite{collobert:2008}, :math:`f` will simply be a linear
@@ -98,6 +99,7 @@ can be expressed in matrix form:
 	\begin{equation}
 	\nabla_{\mathbf{f}}e=(\mathbf{W}^{in})^{T}\mathbf{\boldsymbol{\delta}}^{1}\label{eq:backprop1}
 	\end{equation}
+
 where :math:`\boldsymbol{\delta}^{l}=\frac{\partial e}{\partial\mathbf{a}^{l}}`.
 Moreover the error :math:`\boldsymbol{\delta}^{l}` at layer (or time) :math:`l`
 can be expressed relatively to :math:`\boldsymbol{\delta}^{l+1}` for :math:`1\leq l<L`:
@@ -108,12 +110,14 @@ can be expressed relatively to :math:`\boldsymbol{\delta}^{l+1}` for :math:`1\le
 	 & = & \underset{i,j}{\sum}\frac{\partial e}{\partial a_{i}^{l+1}}\frac{\partial a_{i}^{l+1}}{\partial x_{j}^{l}}\frac{\partial x_{j}^{l}}{\partial a_{k}^{l}}\\
 	 & = & \underset{i}{\sum}\delta_{i}^{l+1}W_{i,p}g'(a_{p}^{l}),
 	\end{eqnarray}
+
 or in matrix form:
 
 .. math::
 	\begin{equation}
 	\boldsymbol{\delta}^{l}=\mathbf{W}{}^{T}\boldsymbol{\delta}^{l+1}\cdot g'(\mathbf{a}^{l})\label{eq:gardvanisheq}
 	\end{equation}
+
 Finally :math:`\boldsymbol{\delta}^{L-1}` at the last layer is:
 
 .. math::
@@ -169,3 +173,4 @@ Code
 .. automodule:: esnlm.features.features
    :members:
    :undoc-members:
+   

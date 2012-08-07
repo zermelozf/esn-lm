@@ -20,8 +20,12 @@ Theory and code
 .. toctree::
    :maxdepth: 1
 
-   features
+   introduction
+   esn
    linear
+   lm
+   markovian
+   features
    logistic
    moe
    smoe
