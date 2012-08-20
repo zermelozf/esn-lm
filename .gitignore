@@ -1,1 +1,14 @@
 datasets/ytest
+build
+doc/_build
+doc/esn_lm.egg-info
+.settings
+dist
+build
+.pydevproject
+esn_lm.egg-info
+datasets/ytrain
+datasets/xtest
+datasets/xtrain
+.project
+*.pyc
