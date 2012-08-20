@@ -1,10 +1,1 @@
-.pydevproject
-.project
-doc/_build
-.settings
-esn_lm.egg-info
-*.pyc
-doc/.DS_Store
-.DS_Store
-dist
-build
+datasets/ytest

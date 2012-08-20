@@ -1,6 +1,6 @@
 import numpy as np
 from logistic import LogisticRegression
-from ..optimization import expectation_maximization
+from ..optimization import expectation_maximization2
 
 #### CLASS DEFINITION
 class MixtureOfExperts:
@@ -58,7 +58,7 @@ class MixtureOfExperts:
         """
         if type(y) == type([]):
             y = np.eye(self.output_dim)[y]
-        ll, Q1, Q2 = expectation_maximization(self, x, y, max_iter=max_iter)
+        ll, Q1, Q2 = expectation_maximization2(self, x, y, max_iter=max_iter)
         return ll, Q1, Q2
         
         
