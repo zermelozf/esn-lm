@@ -38,12 +38,14 @@ class SupervisedMoE:
             
     def fit(self, x, labels):
         nlabels, mlabels = lab(labels, self.output_dim)
-        print "... learning gating model"
+        print "... learning gating model",
         self.gates.fit(x, nlabels)
         for i in range(self.nb_experts):
-            print "... learning expert", i
+            print "and expert", 
+            print i,
             idx = np.nonzero(nlabels==i)[0]
             self.experts[i].fit(x[idx,:], mlabels[idx])
+        print "The end."
     
     def py_given_x(self, x):
         c = self.gates.predict_proba(x)

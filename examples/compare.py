@@ -3,8 +3,21 @@
 import cPickle as pickle
 import Oger as og
 from esnlm.features import Features
-from esnlm.utils import compare
 from esnlm.readouts import *
+
+def compare(features, reservoir, readouts, utrain, ytrain, utest, ytest):
+    xtrain = reservoir.execute(features[utrain])
+    xtest  = reservoir.execute(features[utest])
+    
+    per = []
+    for readout in readouts:
+        print "... learning", readout
+        try:
+            readout.fit(xtrain, ytrain, method='CG')
+        except:
+            readout.fit(xtrain, ytrain)
+        per.append(perplexity(readout.py_given_x(xtest), ytest))
+    return per
 
 print "... loading text"
 with open('./../datasets/t5_train') as f:
@@ -66,5 +79,3 @@ p2 = plot(fperplexity, color='red')
 legend([p1[0], p2[0]], ['one-hot', 'features'])
 
 show()
-
-

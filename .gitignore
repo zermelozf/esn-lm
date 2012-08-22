@@ -12,3 +12,4 @@ datasets/xtest
 datasets/xtrain
 .project
 *.pyc
+results

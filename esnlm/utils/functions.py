@@ -55,17 +55,3 @@ def perplexity(py, y):
     for i, p in enumerate(py):
         perplexity *= p[y[i]]**(-1./len(y))
     return perplexity
-
-def compare(features, reservoir, readouts, utrain, ytrain, utest, ytest):
-    xtrain = reservoir.execute(features[utrain])
-    xtest  = reservoir.execute(features[utest])
-    
-    per = []
-    for readout in readouts:
-        print "... learning", readout
-        try:
-            readout.fit(xtrain, ytrain, method='CG')
-        except:
-            readout.fit(xtrain, ytrain)
-        per.append(perplexity(readout.py_given_x(xtest), ytest))
-    return per

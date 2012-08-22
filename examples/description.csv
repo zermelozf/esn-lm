@@ -1,0 +1,9 @@
+with_features,False
+features_dim,2
+NR_max_iter,5
+nb_experts,2
+features_max_iter,10
+test_dataset,./../datasets/t5_test
+train_dataset,./../datasets/t5_train
+reservoir_dim,5
+spectral_radius,0.97
