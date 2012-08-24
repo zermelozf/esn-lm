@@ -7,9 +7,10 @@ import cPickle as pickle
 import Oger as og
 from esnlm.features import Features
 from esnlm.readouts import LinearRegression, MixtureOfExperts, SupervisedMoE
-from esnlm.readouts import LogisticRegression
+#from esnlm.readouts import LogisticRegression
 from sklearn.linear_model import LogisticRegression
 from esnlm.utils import perplexity
+from time import time
 
 def run_experiment(data, options):
     reservoir = og.nodes.ReservoirNode( input_dim       =   data['udim'],
@@ -32,8 +33,10 @@ def run_experiment(data, options):
     data['xtest']  = reservoir.execute(features[utest])
     
     perp = []
+    t = []
     for readout in readouts:
         print "... learning", readout
+        tstart = time()
         try:
             readout.fit(data['xtrain'], data['ytrain'], method='CG', max_iter=options['NR_max_iter'])
         except:
@@ -42,11 +45,12 @@ def run_experiment(data, options):
             perp.append(perplexity(readout.py_given_x(data['xtest']), data['ytest']))
         except:
             perp.append(perplexity(readout.predict_proba(data['xtest']), data['ytest']))
-    
+        t.append(-tstart + time())
+        
     path = '../results/'+str(datetime.now())+'/'
-    save_experiment(options, data, features, reservoir, readouts, perp, path)
+    save_experiment(options, data, features, reservoir, readouts, perp, t, path)
 
-def save_experiment(options, data, features, reservoir, readouts, perp, path):
+def save_experiment(options, data, features, reservoir, readouts, perp, t, path):
     if not os.path.exists(path):
         os.makedirs(path)
     with open(path+'results', 'w') as f:
@@ -64,7 +68,7 @@ def save_experiment(options, data, features, reservoir, readouts, perp, path):
     
     with open(path+'results.txt', 'w') as f:
         for i, readout in enumerate(readouts):
-            f.write(str(readout) + '\t' + str(perp[i]) + '\n')
+            f.write(str(readout) + '\t' + str(perp[i]) + '\t' + str(t[i]) + '\n')
 
 if __name__ == "__main__":
     
