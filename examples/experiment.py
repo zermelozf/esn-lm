@@ -6,7 +6,9 @@ import numpy as np
 import cPickle as pickle
 import Oger as og
 from esnlm.features import Features
-from esnlm.readouts import LogisticRegression, LinearRegression, MixtureOfExperts, SupervisedMoE
+from esnlm.readouts import LinearRegression, MixtureOfExperts, SupervisedMoE
+from esnlm.readouts import LogisticRegression
+from sklearn.linear_model import LogisticRegression
 from esnlm.utils import perplexity
 
 def run_experiment(data, options):
@@ -21,7 +23,8 @@ def run_experiment(data, options):
         features = np.eye(data['udim'])
     
     readouts = [LinearRegression(options['reservoir_dim'], data['ydim']),
-                LogisticRegression(options['reservoir_dim'], data['ydim']),
+                LogisticRegression(),
+                #LogisticRegression(options['reservoir_dim'], data['ydim']),
                 SupervisedMoE(options['reservoir_dim'], data['ydim']),
                 MixtureOfExperts(input_dim=options['reservoir_dim'], nb_experts=options['nb_experts'], output_dim=data['ydim'])
                 ]
@@ -35,9 +38,15 @@ def run_experiment(data, options):
             readout.fit(data['xtrain'], data['ytrain'], method='CG', max_iter=options['NR_max_iter'])
         except:
             readout.fit(data['xtrain'], data['ytrain'])
-        perp.append(perplexity(readout.py_given_x(data['xtest']), data['ytest']))
+        try:
+            perp.append(perplexity(readout.py_given_x(data['xtest']), data['ytest']))
+        except:
+            perp.append(perplexity(readout.predict_proba(data['xtest']), data['ytest']))
     
     path = '../results/'+str(datetime.now())+'/'
+    save_experiment(options, data, features, reservoir, readouts, perp, path)
+
+def save_experiment(options, data, features, reservoir, readouts, perp, path):
     if not os.path.exists(path):
         os.makedirs(path)
     with open(path+'results', 'w') as f:
@@ -52,19 +61,34 @@ def run_experiment(data, options):
         w = csv.writer(f)
         for key, val in options.items():
             w.writerow([key, val])
+    
+    with open(path+'results.txt', 'w') as f:
+        for i, readout in enumerate(readouts):
+            f.write(str(readout) + '\t' + str(perp[i]) + '\n')
 
 if __name__ == "__main__":
+    
+#    options = {}
+#    options['train_dataset']    = './../datasets/t5_train'
+#    options['test_dataset']     = './../datasets/t5_test'
+#    options['with_features']    = False, True
+#    options['features_dim']     = 2, 3, 5, 10
+#    options['reservoir_dim']    = 5, 10, 15, 25, 50, 100
+#    options['spectral_radius']  = 0.97
+#    options['nb_experts']       = 2, 3, 5
+#    options['features_max_iter'] = 10
+#    options['NR_max_iter']      = 15
     
     options = {}
     options['train_dataset']    = './../datasets/t5_train'
     options['test_dataset']     = './../datasets/t5_test'
-    options['with_features']    = False, True
-    options['features_dim']     = 2, 3, 5, 10
-    options['reservoir_dim']    = 5, 10, 15, 25, 50, 100
+    options['with_features']    = False
+    options['features_dim']     = 2
+    options['reservoir_dim']    = 5
     options['spectral_radius']  = 0.97
-    options['nb_experts']       = 2, 3, 5
+    options['nb_experts']       = 2
     options['features_max_iter'] = 10
-    options['NR_max_iter']      = 15
+    options['NR_max_iter']      = 25
     
     print "... loading text"
     with open(options['train_dataset']) as f:
@@ -87,17 +111,6 @@ if __name__ == "__main__":
     data['ytrain'] = ytrain
     data['utest'] = utest
     data['ytest'] = ytest
-
-    options = {}
-    options['train_dataset']    = './../datasets/t5_train'
-    options['test_dataset']     = './../datasets/t5_test'
-    options['with_features']    = False
-    options['features_dim']     = 2
-    options['reservoir_dim']    = 5
-    options['spectral_radius']  = 0.97
-    options['nb_experts']       = 2
-    options['features_max_iter'] = 10
-    options['NR_max_iter']      = 5
 
     print "... running experiment"
     run_experiment(data, options)

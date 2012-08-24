@@ -127,6 +127,7 @@ def expectation_maximization2(model, x, y, max_iter=100):
     Q1l = []
     Q2l = []
     
+    print "...... EM with Newton-Raphson",
     for iter in range(max_iter):
         print iter,
         
