@@ -38,7 +38,8 @@ def run_experiment(data, options):
         print "... learning", readout
         tstart = time()
         try:
-            readout.fit(data['xtrain'], data['ytrain'], method='CG', max_iter=options['NR_max_iter'])
+            #wxy quick hack
+            wxy = readout.fit(data['xtrain'], data['ytrain'], method='CG', max_iter=options['NR_max_iter'])
         except:
             readout.fit(data['xtrain'], data['ytrain'])
         try:
@@ -49,6 +50,9 @@ def run_experiment(data, options):
         
     path = '../results/'+str(datetime.now())+'/'
     save_experiment(options, data, features, reservoir, readouts, perp, t, path)
+    #hack dump
+    with open(path+'/wxy', w) as f:
+        pickle.dump(wxy, f)
 
 def save_experiment(options, data, features, reservoir, readouts, perp, t, path):
     if not os.path.exists(path):

@@ -4,14 +4,23 @@ import cPickle as pickle
 import Oger as og
 from esnlm.features import Features
 from esnlm.readouts import *
+import random
 
 print "... loading text"
-with open('./../datasets/t5_train') as f:
-    text_train = pickle.load(f)
-    
-with open('./../datasets/t5_test') as f:
-    text_test = pickle.load(f)
-    
+#with open('./../datasets/t5_train') as f:
+#    text_train =(' '.join(pickle.load(f))).split(' . ')
+#    random.shuffle(text_train)
+#    text_train = (' . '.join(text_train)).split(' ')
+#    
+#with open('./../datasets/t5_test') as f:
+#    text_test =(' '.join(pickle.load(f))).split(' . ')
+#    random.shuffle(text_test)
+#    text_test = (' . '.join(text_test)).split(' ')
+
+import nltk
+text_train = list(nltk.corpus.gutenberg.words('austen-emma.txt'))
+text_test = text_train
+ 
 vocabulary = list(set(text_train))
 
 ### Transform text into labels
@@ -36,9 +45,9 @@ features = Features(input_dim, features_dim).learn(utrain, ytrain, reservoir, ma
 
 
 #readout = LinearRegression(reservoir_dim, output_dim)
-#readout = LogisticRegression(reservoir_dim, output_dim)
+readout = LogisticRegression(reservoir_dim, output_dim)
 #readout = MixtureOfExperts(input_dim=reservoir_dim, nb_experts=3, output_dim=output_dim)
-readout = SupervisedMoE(reservoir_dim, output_dim)
+#readout = SupervisedMoE(reservoir_dim, output_dim)
 
 print "... building data"
 xtrain = reservoir.execute(features[utrain])
