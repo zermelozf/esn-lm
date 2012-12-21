@@ -99,10 +99,20 @@ if __name__ == "__main__":
     options['NR_max_iter']      = 25
     
     print "... loading text"
-    with open(options['train_dataset']) as f:
-        text_train = pickle.load(f)   
-    with open(options['test_dataset']) as f:
-        text_test = pickle.load(f)  
+    import random
+    with open('./../datasets/t5_train') as f:
+        text_train =(' '.join(pickle.load(f))).split(' . ')
+        random.shuffle(text_train)
+        text_train = (' . '.join(text_train)).split(' ')
+        
+    with open('./../datasets/t5_test') as f:
+        text_test =(' '.join(pickle.load(f))).split(' . ')
+        random.shuffle(text_test)
+        text_test = (' . '.join(text_test)).split(' ')
+#    with open(options['train_dataset']) as f:
+#        text_train = pickle.load(f)   
+#    with open(options['test_dataset']) as f:
+#        text_test = pickle.load(f)  
     vocabulary = list(set(text_train))
     
     print "... building data"
